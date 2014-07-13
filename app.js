@@ -5,8 +5,8 @@ var pos = {x:can.width/2,y:can.height/2}
 var width = 200;
 var height = 200;
 var scale = 1;
-var rotation = -5;
-
+var rotation = 0;
+var world_rotation = -5;
 var mc = new Hammer.Manager(can, {
 });
 
@@ -39,8 +39,12 @@ mc.on('pinchend',function(ev) {
 })
 
 mc.on('rotatemove',function(ev){
-  rotation = ev.rotation
+  rotation = world_rotation + ev.rotation;
 })
+
+mc.on('rotateend',function(ev){
+  world_rotation = rotation;
+});
 
 mc.on('tap',_(function(ev){
   if(loaded.length>0){
